@@ -1,0 +1,1 @@
+ALTER TABLE disciplina ALTER vagasDisponiveis SET DEFAULT 9999;
