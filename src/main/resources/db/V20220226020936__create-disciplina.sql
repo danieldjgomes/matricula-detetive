@@ -1,6 +1,6 @@
 CREATE TABLE `disciplina` (
   `identificadorUFABC` int(11) NOT NULL,
-  `nomeDisciplina` varchar(100) NOT NULL,
+  `nomeDisciplina` varchar(300) NOT NULL,
   `periodo` varchar(50) NOT NULL,
   `vagasDisponibilizadas` int(11) NOT NULL,
   `vagasDisponiveis` int(11) NOT NULL,
