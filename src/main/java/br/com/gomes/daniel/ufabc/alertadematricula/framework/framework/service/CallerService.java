@@ -1,7 +1,8 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.app.service;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.service;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions.ChamadaDisciplinasIndisponivelException;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 public class CallerService {
 
     public Optional<String> requestToUrl(String pathUrl) throws IOException {

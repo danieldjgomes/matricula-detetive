@@ -12,8 +12,10 @@ public interface DisciplinaRepository {
 
     void atualizarQuantidadeDisciplinas(List<Disciplina> atualizados);
 
-    void excluirDisciplinaInclusa(List<String> id ,boolean isInclusa);
+    void excluirDisciplinasInclusas(List<String> id);
 
-    Optional<List> getDisciplinas();
+    void excluirDisciplinasNaoInclusas(List<String> id);
+
+    Optional<List<Disciplina>> getDisciplinas();
 
 }

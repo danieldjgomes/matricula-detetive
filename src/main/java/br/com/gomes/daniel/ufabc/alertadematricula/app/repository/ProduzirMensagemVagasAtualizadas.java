@@ -1,6 +1,8 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.app.repository;
 
-public interface MessageProducerVagasAtualizadas extends MessageProducer<T>{
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 
-    public <Disciplina> void execute(T t);
+public interface ProduzirMensagemVagasAtualizadas {
+
+    public void execute(Disciplina disciplina);
 }

@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.service.CallerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,8 +26,7 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
     private EntityManager em;
 
     @Autowired
-    private CallerUtils utils;
-
+    private ConstrutorDeQueryImpl utils;
 
     @Transactional
     public void atualizarQuantidadeVagas(List<String> atualizados, Map<String, Disciplina> vagas) {
@@ -45,9 +43,17 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
     }
 
     @Transactional
-    public void excluirDisciplinaInclusa(List<String> id, boolean isInclusa) {
+    public void excluirDisciplinasNaoInclusas(List<String> id) {
         String valoresIn = id.stream().map(String::valueOf).collect(Collectors.joining(","));
-        String sql = "DELETE FROM DISCIPLINA WHERE identificadorUFABC " + (isInclusa ? "" : "NOT") + " IN ( " + valoresIn + " )";
+        String sql = "DELETE FROM DISCIPLINA WHERE identificadorUFABC NOT IN ( " + valoresIn + " )";
+        Query query = em.createNativeQuery(sql);
+        query.executeUpdate();
+    }
+
+    @Transactional
+    public void excluirDisciplinasInclusas(List<String> id) {
+        String valoresIn = id.stream().map(String::valueOf).collect(Collectors.joining(","));
+        String sql = "DELETE FROM DISCIPLINA WHERE identificadorUFABC IN ( " + valoresIn + " )";
         Query query = em.createNativeQuery(sql);
         query.executeUpdate();
     }
@@ -69,7 +75,7 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
     }
 
     @Override
-    public Optional<List> getDisciplinas() {
+    public Optional<List<Disciplina>> getDisciplinas() {
         String sql = "SELECT * FROM DISCIPLINA";
         Query query = em.createNativeQuery(sql, DisciplinaDAO.class);
         List<DisciplinaDAO> disciplinasDAO = query.getResultList();

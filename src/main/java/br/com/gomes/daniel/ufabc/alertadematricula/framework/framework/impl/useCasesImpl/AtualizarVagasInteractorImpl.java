@@ -1,23 +1,29 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.app.useCasesImpl;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl.useCasesImpl;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ApiCaller;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.service.CallerService;
+import br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.service.CallerService;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.AtualizarVagasInteractor;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.ProduzirMensagemAlteracaoVagaInteractor;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.repository.DisciplinaRepository;
 import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions.RepositorioDisciplinaIndisponivelException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
+@Service
 public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
 
+   @Autowired
    private ApiCaller apiCaller;
+   @Autowired
    private DisciplinaRepository disciplinaRepository;
+   @Autowired
    private CallerService callerService;
+   @Autowired
    private ProduzirMensagemAlteracaoVagaInteractor produzirMensagem;
 
     public void execute(){
