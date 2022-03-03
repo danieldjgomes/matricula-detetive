@@ -20,7 +20,6 @@ public class UpdateVagasDisponiveis {
     @Scheduled(cron = "*/10 * * * * *")
     public void execute() {
         atualizarVagas.execute();
-        log.info("As vagas foram atualizadas.");
     }
 
 
