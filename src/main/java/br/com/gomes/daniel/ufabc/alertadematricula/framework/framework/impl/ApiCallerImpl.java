@@ -2,17 +2,19 @@ package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.DisciplinaVO;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ApiCaller;
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.service.CallerService;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.service.CallerService;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions.RepositorioDisciplinaIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.RepositorioDisciplinaIndisponivelException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
 @Service
+@Slf4j
 public class ApiCallerImpl implements ApiCaller {
 
     @Autowired
@@ -39,6 +41,7 @@ public class ApiCallerImpl implements ApiCaller {
                 DisciplinaVO disciplina = om.readValue(materia, DisciplinaVO.class);
                 disciplinas.add(disciplina.toDomain());
             }
+
             return Optional.ofNullable(Optional.of(disciplinas).orElseThrow(ChamadaVagasDisponiveisIndisponivelException::new));
 
         } catch (IOException e) {

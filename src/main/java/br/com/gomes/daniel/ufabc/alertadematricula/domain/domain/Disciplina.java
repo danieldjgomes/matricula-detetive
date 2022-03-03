@@ -1,26 +1,25 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.domain.domain;
 
-public class Disciplina {
+import java.io.Serializable;
+
+public class Disciplina implements Serializable {
 
     public String identificadorUFABC;
     private String nome;
     private Periodo periodo;
     private int vagasDisponibilizadas;
     private int vagasIngressantes;
-
-    public String getIdentificadorUFABC() {
-        return identificadorUFABC;
-    }
-
-
-
     private int vagasDisponiveis;
     private int creditos;
     private String codigo;
     private String campus;
 
-    public void setVagasDisponiveis(int vagasDisponiveis) {
-        this.vagasDisponiveis = vagasDisponiveis;
+    public String getIdentificadorUFABC() {
+        return identificadorUFABC;
+    }
+
+    public void setIdentificadorUFABC(String identificadorUFABC) {
+        this.identificadorUFABC = identificadorUFABC;
     }
 
     public String getNome() {
@@ -83,13 +82,13 @@ public class Disciplina {
         return vagasDisponiveis;
     }
 
-    public void setIdentificadorUFABC(String identificadorUFABC) {
-        this.identificadorUFABC = identificadorUFABC;
+    public void setVagasDisponiveis(int vagasDisponiveis) {
+        this.vagasDisponiveis = vagasDisponiveis;
     }
 
     @Override
     public String toString() {
-        return "identificadorUFABC:" + identificadorUFABC +  " nome:"  + nome + " " + vagasDisponiveis + "/" + vagasDisponibilizadas;
+        return "identificadorUFABC:" + identificadorUFABC + " nome:" + nome + " " + vagasDisponiveis + "/" + vagasDisponibilizadas;
 
     }
 }

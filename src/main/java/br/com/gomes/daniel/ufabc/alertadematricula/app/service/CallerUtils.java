@@ -1,16 +1,14 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.service;
+package br.com.gomes.daniel.ufabc.alertadematricula.app.service;
+
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
-
-import org.springframework.stereotype.Service;
-
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 
 @Service
 public class CallerUtils {
@@ -29,16 +27,15 @@ public class CallerUtils {
         return result.toString();
     }
 
-    public Boolean isQuantidadeAtualizada(String identificadorUFABC, Integer quantidadeVagas, Map<String, Disciplina> identificadorDisciplinaMap){
+    public Boolean isQuantidadeAtualizada(String identificadorUFABC, Integer quantidadeVagas, Map<String, Disciplina> identificadorDisciplinaMap) {
         Disciplina disciplina = identificadorDisciplinaMap.get(identificadorUFABC);
 
-        if (disciplina != null){
+        if (disciplina != null) {
             return quantidadeVagas < disciplina.getVagasDisponiveis();
         }
         return false;
 
     }
-
 
 
 }

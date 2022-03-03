@@ -1,7 +1,7 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.service;
+package br.com.gomes.daniel.ufabc.alertadematricula.app.service;
 
+import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaDisciplinasIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions.ChamadaDisciplinasIndisponivelException;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -29,10 +29,10 @@ public class CallerService {
         return Optional.ofNullable(Optional.of(result.toString()).orElseThrow(ChamadaDisciplinasIndisponivelException::new));
     }
 
-    public Boolean isQuantidadeAtualizada(String identificadorUFABC, Integer quantidadeVagas, Map<String, Disciplina> identificadorDisciplinaMap){
+    public Boolean isQuantidadeAtualizada(String identificadorUFABC, Integer quantidadeVagas, Map<String, Disciplina> identificadorDisciplinaMap) {
         Disciplina disciplina = identificadorDisciplinaMap.get(identificadorUFABC);
 
-        if (disciplina != null){
+        if (disciplina != null) {
             return quantidadeVagas < disciplina.getVagasDisponiveis();
         }
         return false;

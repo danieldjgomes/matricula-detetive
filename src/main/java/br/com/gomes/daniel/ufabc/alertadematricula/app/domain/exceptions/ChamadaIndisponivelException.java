@@ -1,4 +1,4 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions;
+package br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions;
 
 public class ChamadaIndisponivelException extends InfraestruturaException {
 

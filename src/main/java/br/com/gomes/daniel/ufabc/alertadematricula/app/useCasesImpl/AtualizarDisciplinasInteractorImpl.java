@@ -1,27 +1,31 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl.useCasesImpl;
+package br.com.gomes.daniel.ufabc.alertadematricula.app.useCasesImpl;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ApiCaller;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.AtualizarDisciplinasInteractor;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.repository.DisciplinaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-@Service
+
+@Named
 public class AtualizarDisciplinasInteractorImpl implements AtualizarDisciplinasInteractor {
 
-    @Autowired
-    private ApiCaller apiCaller;
+    private final ApiCaller apiCaller;
+    private final DisciplinaRepository disciplinaRepository;
 
-    @Autowired
-    private DisciplinaRepository disciplinaRepository;
+    @Inject
+    public AtualizarDisciplinasInteractorImpl(ApiCaller apiCaller, DisciplinaRepository disciplinaRepository) {
+        this.apiCaller = apiCaller;
+        this.disciplinaRepository = disciplinaRepository;
+    }
 
     public void execute() {
         Optional<List<Disciplina>> disciplinasAPI = apiCaller.getDisciplinas();
-        if(disciplinasAPI.isPresent()){
+        if (disciplinasAPI.isPresent()) {
             List<String> inclusos = new ArrayList<>();
             for (Disciplina disciplina : disciplinasAPI.get()) {
                 inclusos.add((disciplina.getIdentificadorUFABC()));

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.repository.DisciplinaRepository;
 import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.DAO.DisciplinaDAO;
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.exceptions.RepositorioDisciplinaIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.RepositorioDisciplinaIndisponivelException;
 
 @Repository
 public class DisciplinaRepositoryImpl implements DisciplinaRepository {
@@ -58,22 +58,6 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
         query.executeUpdate();
     }
 
-    public Boolean isQuantidadeAtualizada(Long identificadorUFABC, Integer quantidadeVagas) {
-        String sql = "SELECT CASE WHEN vagasDisponiveis < ? THEN true " +
-                "    ELSE false " +
-                "    END AS RESULTADO FROM disciplina " +
-                "    WHERE identificadorUFABC = ?";
-        Query query = em.createNativeQuery(sql);
-        query.setParameter(1, quantidadeVagas);
-        query.setParameter(2, identificadorUFABC);
-        List<BigInteger> result = (List<BigInteger>) query.getResultList();
-
-        if(result.isEmpty())
-            return false;
-
-        return result.get(0).intValue() == 1;
-    }
-
     @Override
     public Optional<List<Disciplina>> getDisciplinas() {
         String sql = "SELECT * FROM DISCIPLINA";
@@ -83,11 +67,6 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
 
          return Optional.ofNullable(Optional.of(disciplinas).orElseThrow(RepositorioDisciplinaIndisponivelException::new));
 
-    }
-    @Transactional
-    public void queryRunner(String string) {
-        Query query = em.createNativeQuery(string);
-        query.executeUpdate();
     }
 
 }

@@ -1,15 +1,18 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl.useCasesImpl;
+package br.com.gomes.daniel.ufabc.alertadematricula.app.useCasesImpl;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.AtualizarDisciplinasInteractor;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.InicializarDadosInteractor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
+import javax.inject.Named;
+
+@Named
 public class InicializarDadosInteractorImpl implements InicializarDadosInteractor {
 
-    @Autowired
-    private AtualizarDisciplinasInteractor atualizarDisciplinas;
+    private final AtualizarDisciplinasInteractor atualizarDisciplinas;
+
+    public InicializarDadosInteractorImpl(AtualizarDisciplinasInteractor atualizarDisciplinas) {
+        this.atualizarDisciplinas = atualizarDisciplinas;
+    }
 
     public void execute() {
         atualizarDisciplinas.execute();
