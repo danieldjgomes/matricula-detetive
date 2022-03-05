@@ -1,11 +1,11 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.requisicaoExterna;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.DisciplinaVO;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ApiCaller;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.service.CallerService;
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.RepositorioDisciplinaIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.GetRecursoTexto;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.RequisicaoApiUfabc;
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,17 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+
 @Service
 @Slf4j
-public class ApiCallerImpl implements ApiCaller {
+public class RequisicaoApiUfabcImpl implements RequisicaoApiUfabc {
 
     @Autowired
-    private CallerService callerService;
+    private GetRecursoTexto getRecursoTexto;
 
     public Optional<List<Disciplina>> getDisciplinas() {
         try {
-            Optional<String> line = callerService.requestToUrl("https://matricula.ufabc.edu.br/cache/todasDisciplinas.js");
+            Optional<String> line = getRecursoTexto.execute("https://matricula.ufabc.edu.br/cache/todasDisciplinas.js");
             line.orElseThrow(ChamadaVagasDisponiveisIndisponivelException::new);
 
             StringBuilder sb = new StringBuilder();
@@ -33,10 +34,10 @@ public class ApiCallerImpl implements ApiCaller {
             List<Disciplina> disciplinas = new ArrayList<>();
             for (String materia : dividido) {
                 if (materia.charAt(0) == "\"".charAt(0)) {
-                    materia = "{\"campus"  + materia;
+                    materia = "{\"campus" + materia;
 
                 }
-                materia =   materia + "}";
+                materia = materia + "}";
                 ObjectMapper om = new ObjectMapper();
                 DisciplinaVO disciplina = om.readValue(materia, DisciplinaVO.class);
                 disciplinas.add(disciplina.toDomain());
@@ -53,7 +54,7 @@ public class ApiCallerImpl implements ApiCaller {
     @Override
     public Optional<Map<String, Integer>> getVagasDisponiveis() {
         try {
-            Optional<String> line = callerService.requestToUrl("https://matricula.ufabc.edu.br/cache/contagemMatriculas.js?1479842272");
+            Optional<String> line = getRecursoTexto.execute("https://matricula.ufabc.edu.br/cache/contagemMatriculas.js?1479842272");
 
             StringBuilder sb = new StringBuilder();
             sb.append(line);

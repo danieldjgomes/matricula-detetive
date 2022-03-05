@@ -1,8 +1,8 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.mensagens;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.AlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.Mensagem;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.mensagens.EnviarMensagemAlteracaoVaga;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.mensagens.EnviarMensagemAlteracaoVaga;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.configuration;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.construtor;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ConstrutorDeFilas;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.construtor.mensageria.ConstrutorDeFilas;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;

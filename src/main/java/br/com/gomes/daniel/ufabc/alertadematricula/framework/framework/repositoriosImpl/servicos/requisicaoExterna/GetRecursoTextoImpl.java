@@ -1,7 +1,7 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.app.service;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.requisicaoExterna;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaDisciplinasIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.GetRecursoTexto;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -9,13 +9,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class CallerService {
+public class GetRecursoTextoImpl implements GetRecursoTexto {
 
-    public Optional<String> requestToUrl(String pathUrl) throws IOException {
+    public Optional<String> execute(String pathUrl) throws IOException {
         StringBuilder result = new StringBuilder();
         URL url = new URL(pathUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -27,15 +26,6 @@ public class CallerService {
             }
         }
         return Optional.ofNullable(Optional.of(result.toString()).orElseThrow(ChamadaDisciplinasIndisponivelException::new));
-    }
-
-    public Boolean isQuantidadeAtualizada(String identificadorUFABC, Integer quantidadeVagas, Map<String, Disciplina> identificadorDisciplinaMap) {
-        Disciplina disciplina = identificadorDisciplinaMap.get(identificadorUFABC);
-
-        if (disciplina != null) {
-            return quantidadeVagas < disciplina.getVagasDisponiveis();
-        }
-        return false;
     }
 
 

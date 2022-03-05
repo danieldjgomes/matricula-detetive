@@ -1,13 +1,13 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.app.useCasesImpl;
+package br.com.gomes.daniel.ufabc.alertadematricula.app.interactorImpl;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.AlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.MensagemAlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.RepositorioDisciplinaIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ApiCaller;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.mensagens.EnviarMensagemAlteracaoVaga;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.service.CallerService;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.AtualizarVagasInteractor;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.RequisicaoApiUfabc;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.mensagens.EnviarMensagemAlteracaoVaga;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.servicos.CallerService;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.interactor.AtualizarVagasInteractor;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.repository.DisciplinaRepository;
 
@@ -23,20 +23,19 @@ import java.util.stream.Collectors;
 @Named
 public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
 
-    private final ApiCaller apiCaller;
+    private final RequisicaoApiUfabc apiCaller;
     private final DisciplinaRepository disciplinaRepository;
     private final CallerService callerService;
     //    private final EnviarMensagemAlteracaoVagaInteractor produzirMensagem;
     private EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga;
 
     @Inject
-    public AtualizarVagasInteractorImpl(ApiCaller apiCaller, DisciplinaRepository disciplinaRepository, CallerService callerService, EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga) {
+    public AtualizarVagasInteractorImpl(RequisicaoApiUfabc apiCaller, DisciplinaRepository disciplinaRepository, CallerService callerService, EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga) {
         this.apiCaller = apiCaller;
         this.disciplinaRepository = disciplinaRepository;
         this.callerService = callerService;
         this.enviarMensagemAlteracaoVaga = enviarMensagemAlteracaoVaga;
     }
-
 
     public void execute() {
         Optional<Map<String, Integer>> vagas = apiCaller.getVagasDisponiveis();
@@ -49,7 +48,7 @@ public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
         List<String> atualizados = new ArrayList<>();
 
         vagas.ifPresent(map -> map.forEach((id, vagasDisponiveis) -> {
-                    if (callerService.isQuantidadeAtualizada(id, vagasDisponiveis, identificadorDisciplinaMap)) {
+                    if (isQuantidadeAtualizada(id, vagasDisponiveis, identificadorDisciplinaMap)) {
                         identificadorDisciplinaMap.get(id).setVagasDisponiveis(vagasDisponiveis);
                         atualizados.add(id);
 //                        produzirMensagem.execute(new MensagemAlteracaoVaga(new AlteracaoVaga(identificadorDisciplinaMap.get(id))));
@@ -62,5 +61,15 @@ public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
             disciplinaRepository.excluirDisciplinasInclusas(atualizados);
             disciplinaRepository.atualizarQuantidadeVagas(atualizados, identificadorDisciplinaMap);
         }
+    }
+
+
+    public Boolean isQuantidadeAtualizada(String identificadorUFABC, Integer quantidadeVagas, Map<String, Disciplina> identificadorDisciplinaMap) {
+        Disciplina disciplina = identificadorDisciplinaMap.get(identificadorUFABC);
+
+        if (disciplina != null) {
+            return quantidadeVagas < disciplina.getVagasDisponiveis();
+        }
+        return false;
     }
 }

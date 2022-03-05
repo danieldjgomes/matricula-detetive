@@ -1,6 +1,6 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.framework.scheduler;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.AtualizarVagasInteractor;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.interactor.AtualizarVagasInteractor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;

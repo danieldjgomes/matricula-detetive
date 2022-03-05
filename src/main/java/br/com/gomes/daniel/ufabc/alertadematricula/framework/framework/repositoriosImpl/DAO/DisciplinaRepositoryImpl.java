@@ -1,6 +1,5 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.DAO;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.SQL.GeradorDeQueryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +26,7 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
     private EntityManager em;
 
     @Autowired
-    private ConstrutorDeQueryImpl utils;
+    private GeradorDeQueryImpl utils;
 
     @Transactional
     public void atualizarQuantidadeVagas(List<String> atualizados, Map<String, Disciplina> vagas) {

@@ -1,13 +1,13 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.impl;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.SQL;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ConstrutorDeQuery;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.sql.GeradorDeQuery;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 @Service
-public class ConstrutorDeQueryImpl implements ConstrutorDeQuery {
+public class GeradorDeQueryImpl implements GeradorDeQuery {
 
     public String geraAtualizacaoVaga(List<String> atualizados, Map<String, Disciplina> vagas){
         StringBuilder query = new StringBuilder("INSERT IGNORE INTO disciplina (identificadorUFABC, nomeDisciplina, periodo, vagasDisponibilizadas, vagasDisponiveis, vagasIngressantes, creditos, codigo, campus) ");

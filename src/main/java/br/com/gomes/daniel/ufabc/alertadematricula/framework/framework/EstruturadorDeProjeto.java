@@ -1,8 +1,7 @@
-package br.com.gomes.daniel.ufabc.alertadematricula.framework;
+package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repository.ConstrutorDeFilas;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.useCases.AtualizarDisciplinasInteractor;
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.configuration.ConstrutorDeFilasImpl;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.construtor.mensageria.ConstrutorDeFilas;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.interactor.AtualizarDisciplinasInteractor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
