@@ -15,6 +15,7 @@ public class ConfiguracaoDeAmbiente {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
         dataSource.setUrl(System.getProperty("dbUrl"));
         return dataSource;
     }

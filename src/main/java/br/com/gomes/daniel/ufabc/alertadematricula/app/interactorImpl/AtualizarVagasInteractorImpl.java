@@ -4,10 +4,9 @@ import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.AlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.MensagemAlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.RepositorioDisciplinaIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.RequisicaoApiUfabc;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.mensagens.EnviarMensagemAlteracaoVaga;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.servicos.CallerService;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.interactor.AtualizarVagasInteractor;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.mensagens.EnviarMensagemAlteracaoVaga;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.RequisicaoApiUfabc;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.repository.DisciplinaRepository;
 
@@ -23,22 +22,19 @@ import java.util.stream.Collectors;
 @Named
 public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
 
-    private final RequisicaoApiUfabc apiCaller;
+    private final RequisicaoApiUfabc<Map<String, Integer>> requisicaoVagasDisponiveis;
     private final DisciplinaRepository disciplinaRepository;
-    private final CallerService callerService;
-    //    private final EnviarMensagemAlteracaoVagaInteractor produzirMensagem;
-    private EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga;
+    private final EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga;
 
     @Inject
-    public AtualizarVagasInteractorImpl(RequisicaoApiUfabc apiCaller, DisciplinaRepository disciplinaRepository, CallerService callerService, EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga) {
-        this.apiCaller = apiCaller;
+    public AtualizarVagasInteractorImpl(RequisicaoApiUfabc<Map<String, Integer>> requisicaoVagasDisponiveis, DisciplinaRepository disciplinaRepository, EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga) {
+        this.requisicaoVagasDisponiveis = requisicaoVagasDisponiveis;
         this.disciplinaRepository = disciplinaRepository;
-        this.callerService = callerService;
         this.enviarMensagemAlteracaoVaga = enviarMensagemAlteracaoVaga;
     }
 
     public void execute() {
-        Optional<Map<String, Integer>> vagas = apiCaller.getVagasDisponiveis();
+        Optional<Map<String, Integer>> vagas = requisicaoVagasDisponiveis.requisitar();
         vagas.orElseThrow(ChamadaVagasDisponiveisIndisponivelException::new);
 
         Optional<List<Disciplina>> disciplinas = disciplinaRepository.getDisciplinas();
@@ -51,7 +47,6 @@ public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
                     if (isQuantidadeAtualizada(id, vagasDisponiveis, identificadorDisciplinaMap)) {
                         identificadorDisciplinaMap.get(id).setVagasDisponiveis(vagasDisponiveis);
                         atualizados.add(id);
-//                        produzirMensagem.execute(new MensagemAlteracaoVaga(new AlteracaoVaga(identificadorDisciplinaMap.get(id))));
                         this.enviarMensagemAlteracaoVaga.execute(new MensagemAlteracaoVaga(new AlteracaoVaga(identificadorDisciplinaMap.get(id))));
                     }
                 }

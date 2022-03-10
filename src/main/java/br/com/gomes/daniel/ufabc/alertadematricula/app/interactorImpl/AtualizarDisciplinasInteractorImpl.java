@@ -14,17 +14,17 @@ import java.util.Optional;
 @Named
 public class AtualizarDisciplinasInteractorImpl implements AtualizarDisciplinasInteractor {
 
-    private final RequisicaoApiUfabc apiCaller;
+    private final RequisicaoApiUfabc<List<Disciplina>> requisicaoDisciplinas;
     private final DisciplinaRepository disciplinaRepository;
 
     @Inject
-    public AtualizarDisciplinasInteractorImpl(RequisicaoApiUfabc apiCaller, DisciplinaRepository disciplinaRepository) {
-        this.apiCaller = apiCaller;
+    public AtualizarDisciplinasInteractorImpl(RequisicaoApiUfabc<List<Disciplina>> requisicaoDisciplinas, DisciplinaRepository disciplinaRepository) {
+        this.requisicaoDisciplinas = requisicaoDisciplinas;
         this.disciplinaRepository = disciplinaRepository;
     }
 
     public void execute() {
-        Optional<List<Disciplina>> disciplinasAPI = apiCaller.getDisciplinas();
+        Optional<List<Disciplina>> disciplinasAPI = requisicaoDisciplinas.requisitar();
         if (disciplinasAPI.isPresent()) {
             List<String> inclusos = new ArrayList<>();
             for (Disciplina disciplina : disciplinasAPI.get()) {

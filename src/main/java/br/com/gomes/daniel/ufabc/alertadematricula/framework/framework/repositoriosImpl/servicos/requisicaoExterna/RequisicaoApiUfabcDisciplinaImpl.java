@@ -1,8 +1,9 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.requisicaoExterna;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.DisciplinaVO;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaDisciplinasIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.RepositorioDisciplinaIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.GetRecursoTexto;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.RequisicaoApiUfabc;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
@@ -12,16 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
-public class RequisicaoApiUfabcImpl implements RequisicaoApiUfabc {
+public class RequisicaoApiUfabcDisciplinaImpl implements RequisicaoApiUfabc<List<Disciplina>> {
 
     @Autowired
     private GetRecursoTexto getRecursoTexto;
 
-    public Optional<List<Disciplina>> getDisciplinas() {
+    public Optional<List<Disciplina>> requisitar() throws ChamadaIndisponivelException {
         try {
             Optional<String> line = getRecursoTexto.execute("https://matricula.ufabc.edu.br/cache/todasDisciplinas.js");
             line.orElseThrow(ChamadaVagasDisponiveisIndisponivelException::new);
@@ -43,35 +46,13 @@ public class RequisicaoApiUfabcImpl implements RequisicaoApiUfabc {
                 disciplinas.add(disciplina.toDomain());
             }
 
-            return Optional.ofNullable(Optional.of(disciplinas).orElseThrow(ChamadaVagasDisponiveisIndisponivelException::new));
+            return Optional.ofNullable(Optional.of(disciplinas).orElseThrow(ChamadaDisciplinasIndisponivelException::new));
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ChamadaDisciplinasIndisponivelException();
         }
-        return Optional.empty();
     }
 
-    @Override
-    public Optional<Map<String, Integer>> getVagasDisponiveis() {
-        try {
-            Optional<String> line = getRecursoTexto.execute("https://matricula.ufabc.edu.br/cache/contagemMatriculas.js?1479842272");
 
-            StringBuilder sb = new StringBuilder();
-            sb.append(line);
-            String everything = sb.deleteCharAt(sb.length() - 1).toString().replace("contagemMatriculas={", "").replace(";", "").replace("}", "");
-            String[] dividido = everything.split(",");
-
-            Map<String, Integer> vagas = new HashMap<>();
-            for (String vaga : dividido) {
-                String[] divisao = vaga.replace("\"", "").split(":");
-                vagas.put(String.valueOf(divisao[0]), Integer.valueOf(divisao[1]));
-            }
-            return Optional.ofNullable(Optional.of(vagas).orElseThrow(RepositorioDisciplinaIndisponivelException::new));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
 }
 

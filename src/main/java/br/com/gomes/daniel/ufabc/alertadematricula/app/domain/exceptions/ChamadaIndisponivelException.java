@@ -5,4 +5,5 @@ public class ChamadaIndisponivelException extends InfraestruturaException {
     public ChamadaIndisponivelException(String mensagemDeErro) {
         super(mensagemDeErro);
     }
+
 }
