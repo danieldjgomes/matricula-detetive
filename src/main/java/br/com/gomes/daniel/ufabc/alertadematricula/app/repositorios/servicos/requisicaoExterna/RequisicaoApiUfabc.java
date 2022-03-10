@@ -1,6 +1,6 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.ChamadaIndisponivelException;
 
 import java.util.Optional;
 

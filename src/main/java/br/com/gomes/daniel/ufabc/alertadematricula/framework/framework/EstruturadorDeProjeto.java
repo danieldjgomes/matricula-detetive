@@ -1,8 +1,8 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.InfraestruturaException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.InfraestruturaException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.construtor.mensageria.ConstrutorDeFilas;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.interactor.AtualizarDisciplinasInteractor;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.interagentes.AtualizarDisciplinasInteractor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

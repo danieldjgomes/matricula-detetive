@@ -1,10 +1,7 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.requisicaoExterna;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaDisciplinasIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.GetRecursoTexto;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;

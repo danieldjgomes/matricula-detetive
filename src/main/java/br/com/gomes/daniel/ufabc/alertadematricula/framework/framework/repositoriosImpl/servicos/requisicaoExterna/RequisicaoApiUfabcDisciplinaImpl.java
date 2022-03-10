@@ -1,12 +1,12 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.requisicaoExterna;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.DisciplinaVO;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaDisciplinasIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.ChamadaVagasDisponiveisIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.DisciplinaVO;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.ChamadaDisciplinasIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.ChamadaIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.ChamadaVagasDisponiveisIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.GetRecursoTexto;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.RequisicaoApiUfabc;
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.dominio.Disciplina;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

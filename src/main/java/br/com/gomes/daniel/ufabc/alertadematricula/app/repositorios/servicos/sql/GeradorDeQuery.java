@@ -1,6 +1,6 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.sql;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.dominio.Disciplina;
 
 import java.util.List;
 import java.util.Map;

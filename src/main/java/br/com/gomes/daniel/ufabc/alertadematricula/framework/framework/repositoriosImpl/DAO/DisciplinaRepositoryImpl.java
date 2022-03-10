@@ -14,10 +14,10 @@ import br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.repository.DisciplinaRepository;
-import br.com.gomes.daniel.ufabc.alertadematricula.framework.domain.DAO.DisciplinaDAO;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.domain.exceptions.RepositorioDisciplinaIndisponivelException;
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.dominio.Disciplina;
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.repositorio.DisciplinaRepository;
+import br.com.gomes.daniel.ufabc.alertadematricula.framework.dominio.DAO.DisciplinaDAO;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.RepositorioDisciplinaIndisponivelException;
 
 @Repository
 public class DisciplinaRepositoryImpl implements DisciplinaRepository {

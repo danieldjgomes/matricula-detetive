@@ -1,7 +1,7 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.framework.framework.repositoriosImpl.servicos.SQL;
 
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.sql.GeradorDeQuery;
-import br.com.gomes.daniel.ufabc.alertadematricula.domain.domain.Disciplina;
+import br.com.gomes.daniel.ufabc.alertadematricula.domain.dominio.Disciplina;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
