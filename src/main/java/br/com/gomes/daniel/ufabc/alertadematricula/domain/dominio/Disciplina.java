@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Disciplina implements Serializable {
 
+    private static final long serialVersionUID = 7100179587555243994L;
+
     public String identificadorUFABC;
     private String nome;
     private Periodo periodo;

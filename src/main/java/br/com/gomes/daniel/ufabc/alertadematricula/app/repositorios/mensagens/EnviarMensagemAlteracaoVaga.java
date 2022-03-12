@@ -5,6 +5,6 @@ import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.Mensagem;
 
 public interface EnviarMensagemAlteracaoVaga extends EnviarMensagem<Mensagem<AlteracaoVaga>> {
 
-    public void execute(Mensagem<AlteracaoVaga> alteracaoVaga);
+    public void enviar(Mensagem<AlteracaoVaga> alteracaoVaga);
 
 }

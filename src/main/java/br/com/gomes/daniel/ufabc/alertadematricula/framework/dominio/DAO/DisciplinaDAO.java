@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class DisciplinaDAO {
 
     @Id
-    public String identificadorUFABC;
+    private String identificadorUFABC;
 
     @Column(name = "nomedisciplina")
     private String nomeDisciplina;

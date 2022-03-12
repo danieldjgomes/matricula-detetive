@@ -15,7 +15,7 @@ public class EnviarMensagemVagasAtualizadasVaga implements EnviarMensagemAlterac
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    public void execute(Mensagem<AlteracaoVaga> alteracaoVagaMensagem) {
+    public void enviar(Mensagem<AlteracaoVaga> alteracaoVagaMensagem) {
         this.rabbitTemplate.convertAndSend(alteracaoVagaMensagem.getFila(),alteracaoVagaMensagem.getConteudo().getDisciplina());
         log.info("A atualizacao da disciplina " + alteracaoVagaMensagem.getConteudo().getDisciplina().getNome() + "foi enviada para a fila " + alteracaoVagaMensagem.getFila());
     }

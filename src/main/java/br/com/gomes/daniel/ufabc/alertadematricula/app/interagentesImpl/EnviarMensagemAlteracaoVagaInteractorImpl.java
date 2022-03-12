@@ -4,7 +4,7 @@ import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.AlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.MensagemAlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.ChamadaVagasDisponiveisIndisponivelException;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.dominio.excessoes.RepositorioDisciplinaIndisponivelException;
-import br.com.gomes.daniel.ufabc.alertadematricula.app.interagentes.AtualizarVagasInteractor;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.interagentes.EnviarMensagemAlteracaoVagaInteractor;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.mensagens.EnviarMensagemAlteracaoVaga;
 import br.com.gomes.daniel.ufabc.alertadematricula.app.repositorios.servicos.requisicaoExterna.RequisicaoApiUfabc;
 import br.com.gomes.daniel.ufabc.alertadematricula.domain.dominio.Disciplina;
@@ -20,14 +20,14 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Named
-public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
+public class EnviarMensagemAlteracaoVagaInteractorImpl implements EnviarMensagemAlteracaoVagaInteractor {
 
     private final RequisicaoApiUfabc<Map<String, Integer>> requisicaoVagasDisponiveis;
     private final DisciplinaRepository disciplinaRepository;
     private final EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga;
 
     @Inject
-    public AtualizarVagasInteractorImpl(RequisicaoApiUfabc<Map<String, Integer>> requisicaoVagasDisponiveis, DisciplinaRepository disciplinaRepository, EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga) {
+    public EnviarMensagemAlteracaoVagaInteractorImpl(RequisicaoApiUfabc<Map<String, Integer>> requisicaoVagasDisponiveis, DisciplinaRepository disciplinaRepository, EnviarMensagemAlteracaoVaga enviarMensagemAlteracaoVaga) {
         this.requisicaoVagasDisponiveis = requisicaoVagasDisponiveis;
         this.disciplinaRepository = disciplinaRepository;
         this.enviarMensagemAlteracaoVaga = enviarMensagemAlteracaoVaga;
@@ -47,7 +47,7 @@ public class AtualizarVagasInteractorImpl implements AtualizarVagasInteractor {
                     if (isQuantidadeAtualizada(id, vagasDisponiveis, identificadorDisciplinaMap)) {
                         identificadorDisciplinaMap.get(id).setVagasDisponiveis(vagasDisponiveis);
                         atualizados.add(id);
-                        this.enviarMensagemAlteracaoVaga.execute(new MensagemAlteracaoVaga(new AlteracaoVaga(identificadorDisciplinaMap.get(id))));
+                        this.enviarMensagemAlteracaoVaga.enviar(new MensagemAlteracaoVaga(new AlteracaoVaga(identificadorDisciplinaMap.get(id))));
                     }
                 }
         ));

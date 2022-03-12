@@ -1,6 +1,6 @@
 package br.com.gomes.daniel.ufabc.alertadematricula.framework.agendador;
 
-import br.com.gomes.daniel.ufabc.alertadematricula.app.interagentes.AtualizarVagasInteractor;
+import br.com.gomes.daniel.ufabc.alertadematricula.app.interagentes.EnviarMensagemAlteracaoVagaInteractor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class UpdateVagasDisponiveis {
 
     @Autowired
-    private AtualizarVagasInteractor atualizarVagas;
+    private EnviarMensagemAlteracaoVagaInteractor atualizarVagas;
 
 
 
