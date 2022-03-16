@@ -14,7 +14,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-public class ConfiguracaoDeAmbiente {
+public class ConfiguracaoDeBanco {
 
     @Bean
     public DataSource dataSource() {
@@ -24,29 +24,6 @@ public class ConfiguracaoDeAmbiente {
         return dataSource;
     }
 
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setUri(System.getProperty("amqpUrl"));
-        return connectionFactory;
-    }
-
-    @Bean
-    public AmqpAdmin amqpAdmin() {
-        return new RabbitAdmin(connectionFactory());
-    }
-
-    @Bean
-    public MessageConverter messageConverter() {
-        return  new Jackson2JsonMessageConverter();
-    }
-
-    @Bean
-    public AmqpTemplate template(ConnectionFactory connectionFactory) {
-        RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        template.setMessageConverter(messageConverter());
-        return  template;
-    }
 
 
 

@@ -18,7 +18,6 @@ public class ConstrutorDeFilasImpl implements ConstrutorDeFilas {
     @Value("${mensageria.rabbit.filas.vagas}")
     private String FILA_VAGAS;
 
-
     @Autowired
     private AmqpAdmin amqpAdmin;
 
