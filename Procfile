@@ -1,1 +1,1 @@
-web: java -DdbUrl=$dbURL -jar target/matricula-detetive-0.0.1-SNAPSHOT.jar
+web: java -DdbUrl=$dbURL -DamqpUrl=$CLOUDAMQP_URL -Dserver.port=$PORT -jar target/matricula-detetive-1.0.0.jar
