@@ -30,6 +30,9 @@ public class RequisicaoApiUfabcVagasDisponiveisImpl implements RequisicaoApiUfab
             String everything = sb.deleteCharAt(sb.length() - 1).toString().replace("contagemMatriculas={", "").replace(";", "").replace("}", "");
             String[] dividido = everything.split(",");
 
+            if(dividido.length <=1){
+                throw new ChamadaVagasDisponiveisIndisponivelException();
+            }
             Map<String, Integer> vagas = new HashMap<>();
             for (String vaga : dividido) {
                 String[] divisao = vaga.replace("\"", "").split(":");
