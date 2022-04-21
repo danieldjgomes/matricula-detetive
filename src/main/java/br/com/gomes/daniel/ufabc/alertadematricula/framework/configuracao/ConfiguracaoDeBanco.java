@@ -12,8 +12,8 @@ public class ConfiguracaoDeBanco {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-        dataSource.setUrl(System.getProperty("dbUrl"));
+        String url = System.getProperty("dbUrl");
+        dataSource.setUrl(url);
         return dataSource;
     }
 

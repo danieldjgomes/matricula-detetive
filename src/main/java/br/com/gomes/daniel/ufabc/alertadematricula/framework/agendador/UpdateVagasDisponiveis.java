@@ -16,7 +16,6 @@ public class UpdateVagasDisponiveis {
     private EnviarMensagemAlteracaoVagaInteractor atualizarVagas;
 
 
-
     @Scheduled(cron = "* * * * * *")
     public void execute() {
         atualizarVagas.execute();
