@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-@Table(name = "DISCIPLINA")
+@Table(name = "Disciplina")
 public class DisciplinaDAO {
 
     @Id
