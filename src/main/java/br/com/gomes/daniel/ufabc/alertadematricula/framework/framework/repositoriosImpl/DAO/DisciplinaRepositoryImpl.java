@@ -45,7 +45,7 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
     @Transactional
     public void excluirDisciplinasNaoInclusas(List<String> id) {
         String valoresIn = id.stream().map(String::valueOf).collect(Collectors.joining(","));
-        String sql = "DELETE FROM DISCIPLINA WHERE identificadorUFABC NOT IN ( " + valoresIn + " )";
+        String sql = "DELETE FROM Disciplina WHERE identificadorUFABC NOT IN ( " + valoresIn + " )";
         Query query = em.createNativeQuery(sql);
         query.executeUpdate();
     }
@@ -53,14 +53,14 @@ public class DisciplinaRepositoryImpl implements DisciplinaRepository {
     @Transactional
     public void excluirDisciplinasInclusas(List<String> id) {
         String valoresIn = id.stream().map(String::valueOf).collect(Collectors.joining(","));
-        String sql = "DELETE FROM DISCIPLINA WHERE identificadorUFABC IN ( " + valoresIn + " )";
+        String sql = "DELETE FROM Disciplina WHERE identificadorUFABC IN ( " + valoresIn + " )";
         Query query = em.createNativeQuery(sql);
         query.executeUpdate();
     }
 
     @Override
     public Optional<List<Disciplina>> getDisciplinas() {
-        String sql = "SELECT * FROM DISCIPLINA";
+        String sql = "SELECT * FROM Disciplina";
         Query query = em.createNativeQuery(sql, DisciplinaDAO.class);
         List<DisciplinaDAO> disciplinasDAO = query.getResultList();
         List<Disciplina>  disciplinas = disciplinasDAO.stream().map(DisciplinaDAO::toDomain).collect(Collectors.toList());
